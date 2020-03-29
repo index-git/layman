@@ -21,3 +21,9 @@ ENV LANG=C.UTF-8
 COPY Pipfile* /code/
 
 RUN pipenv install --system --dev
+
+RUN apt install -y git && \
+    git clone git://github.com/geopython/OWSLib.git /owslib && \
+    cd /owslib && git checkout 5c9de2fd569cac7b6d4f54b181109e85266ffab4 && cd /code && \
+    pip3 uninstall -y owslib && \
+    pip3 install -e /owslib
